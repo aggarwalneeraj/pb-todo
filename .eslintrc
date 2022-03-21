@@ -6,5 +6,11 @@
   "globals": {
     "cy": true,
     "Cypress": true
-  }
+  },
+  "parserOptions": {
+    "sourceType": "module"
+},
+"rules": {
+  "no-console": "error"
+}
 }

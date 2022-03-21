@@ -1,5 +1,23 @@
 {
+  "env": {
+    "name": "QA env",
+    "nodeVersion": "system"
+  },
   "baseUrl": "http://localhost:8888",
-  "fixturesFolder": false,
-  "pluginsFile": false
+  "defaultCommandTimeout": 4000,
+  "watchForFileChanges": true,
+  "screenshotOnRunFailure": true,
+  "video": false,
+  "fixturesFolder": "cypress/fixtures",
+  "integrationFolder": "cypress/integration",
+  "screenshotsFolder": "cypress/screenshots",
+  "videosFolder": "cypress/videos",
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "charts": true,
+    "overwrite": false,
+    "html": true,
+    "json": false,
+    "reportDir": "cypress/reports"
+  }
 }

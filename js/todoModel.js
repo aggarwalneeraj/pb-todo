@@ -1,10 +1,10 @@
 /* eslint-disable-next-line no-var */
-var app = app || {}
+var app = app || {};
 
-;(function () {
-  'use strict'
+(function () {
+  "use strict";
 
-  let Utils = app.Utils
+  let Utils = app.Utils;
 
   // Generic "model" object. You can use whatever
   // framework you want. For this application it
@@ -12,29 +12,31 @@ var app = app || {}
   // out, but we do this to demonstrate one way to
   // separate out parts of your application.
   app.TodoModel = function (key) {
-    this.key = key
-    this.todos = Utils.store(key)
-    this.onChanges = []
-  }
+    this.key = key;
+    this.todos = Utils.store(key);
+    this.onChanges = [];
+  };
 
   app.TodoModel.prototype.subscribe = function (onChange) {
-    this.onChanges.push(onChange)
-  }
+    this.onChanges.push(onChange);
+  };
 
   app.TodoModel.prototype.inform = function () {
-    Utils.store(this.key, this.todos)
-    this.onChanges.forEach(function (cb) { cb() })
-  }
+    Utils.store(this.key, this.todos);
+    this.onChanges.forEach(function (cb) {
+      cb();
+    });
+  };
 
   app.TodoModel.prototype.addTodo = function (title) {
     this.todos = this.todos.concat({
       id: Utils.uuid(),
       title,
       completed: false,
-    })
+    });
 
-    this.inform()
-  }
+    this.inform();
+  };
 
   app.TodoModel.prototype.toggleAll = function (checked) {
     // Note: it's usually better to use immutable data structures since they're
@@ -42,44 +44,45 @@ var app = app || {}
     // we use map() and filter() everywhere instead of mutating the array or
     // todo items themselves.
     this.todos = this.todos.map(function (todo) {
-      return Utils.extend({}, todo, { completed: checked })
-    })
+      return Utils.extend({}, todo, { completed: checked });
+    });
 
-    this.inform()
-  }
+    this.inform();
+  };
 
   app.TodoModel.prototype.toggle = function (todoToToggle) {
     this.todos = this.todos.map(function (todo) {
-      return todo !== todoToToggle ?
-        todo :
-        Utils.extend({}, todo, { completed: !todo.completed })
-    })
+      return todo !== todoToToggle
+        ? todo
+        : Utils.extend({}, todo, { completed: !todo.completed });
+    });
 
-    this.inform()
-  }
+    this.inform();
+  };
 
   app.TodoModel.prototype.destroy = function (todo) {
     this.todos = this.todos.filter(function (candidate) {
-      return candidate !== todo
-    })
+      return candidate !== todo;
+    });
 
-    this.inform()
-  }
+    this.inform();
+  };
 
   app.TodoModel.prototype.save = function (todoToSave, text) {
     this.todos = this.todos.map(function (todo) {
-      return todo !== todoToSave ? todo : Utils.extend({}, todo, { title: text })
-    })
+      return todo !== todoToSave
+        ? todo
+        : Utils.extend({}, todo, { title: text });
+    });
 
-    this.inform()
-  }
+    this.inform();
+  };
 
   app.TodoModel.prototype.clearCompleted = function () {
     this.todos = this.todos.filter(function (todo) {
-      return !todo.completed
-    })
+      return !todo.completed;
+    });
 
-    this.inform()
-  }
-
-})()
+    this.inform();
+  };
+})();
